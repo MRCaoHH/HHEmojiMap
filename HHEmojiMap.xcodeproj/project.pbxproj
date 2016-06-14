@@ -12,6 +12,15 @@
 		8D90D2F11D1012A3001C48DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D90D2EF1D1012A3001C48DB /* Main.storyboard */; };
 		8D90D2F31D1012A3001C48DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D90D2F21D1012A3001C48DB /* Assets.xcassets */; };
 		8D90D2F61D1012A3001C48DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D90D2F41D1012A3001C48DB /* LaunchScreen.storyboard */; };
+		8D90D3071D1012C0001C48DB /* aio_face_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D90D2FE1D1012C0001C48DB /* aio_face_delete@2x.png */; };
+		8D90D3081D1012C0001C48DB /* aio_face_delete_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D90D2FF1D1012C0001C48DB /* aio_face_delete_pressed@2x.png */; };
+		8D90D3091D1012C0001C48DB /* EmojiMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D90D3001D1012C0001C48DB /* EmojiMap.plist */; };
+		8D90D30A1D1012C0001C48DB /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D90D3011D1012C0001C48DB /* EmojisList.plist */; };
+		8D90D30B1D1012C0001C48DB /* HHCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D90D3021D1012C0001C48DB /* HHCollectionViewFlowLayout.swift */; };
+		8D90D30C1D1012C0001C48DB /* HHEmojiKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D90D3031D1012C0001C48DB /* HHEmojiKeyboard.swift */; };
+		8D90D30D1D1012C0001C48DB /* HHEmojiKeyboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D90D3041D1012C0001C48DB /* HHEmojiKeyboardCell.swift */; };
+		8D90D30E1D1012C0001C48DB /* HHEmojiManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D90D3051D1012C0001C48DB /* HHEmojiManage.swift */; };
+		8D90D30F1D1012C0001C48DB /* HHImageKeyboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D90D3061D1012C0001C48DB /* HHImageKeyboardCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +31,15 @@
 		8D90D2F21D1012A3001C48DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D90D2F51D1012A3001C48DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D90D2F71D1012A3001C48DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D90D2FE1D1012C0001C48DB /* aio_face_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aio_face_delete@2x.png"; sourceTree = "<group>"; };
+		8D90D2FF1D1012C0001C48DB /* aio_face_delete_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aio_face_delete_pressed@2x.png"; sourceTree = "<group>"; };
+		8D90D3001D1012C0001C48DB /* EmojiMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EmojiMap.plist; sourceTree = "<group>"; };
+		8D90D3011D1012C0001C48DB /* EmojisList.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = EmojisList.plist; sourceTree = "<group>"; };
+		8D90D3021D1012C0001C48DB /* HHCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		8D90D3031D1012C0001C48DB /* HHEmojiKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHEmojiKeyboard.swift; sourceTree = "<group>"; };
+		8D90D3041D1012C0001C48DB /* HHEmojiKeyboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHEmojiKeyboardCell.swift; sourceTree = "<group>"; };
+		8D90D3051D1012C0001C48DB /* HHEmojiManage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHEmojiManage.swift; sourceTree = "<group>"; };
+		8D90D3061D1012C0001C48DB /* HHImageKeyboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHImageKeyboardCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +72,7 @@
 		8D90D2EA1D1012A3001C48DB /* HHEmojiMap */ = {
 			isa = PBXGroup;
 			children = (
+				8D90D2FD1D1012C0001C48DB /* EmojiKeyboard */,
 				8D90D2EB1D1012A3001C48DB /* AppDelegate.swift */,
 				8D90D2ED1D1012A3001C48DB /* ViewController.swift */,
 				8D90D2EF1D1012A3001C48DB /* Main.storyboard */,
@@ -62,6 +81,22 @@
 				8D90D2F71D1012A3001C48DB /* Info.plist */,
 			);
 			path = HHEmojiMap;
+			sourceTree = "<group>";
+		};
+		8D90D2FD1D1012C0001C48DB /* EmojiKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				8D90D2FE1D1012C0001C48DB /* aio_face_delete@2x.png */,
+				8D90D2FF1D1012C0001C48DB /* aio_face_delete_pressed@2x.png */,
+				8D90D3001D1012C0001C48DB /* EmojiMap.plist */,
+				8D90D3011D1012C0001C48DB /* EmojisList.plist */,
+				8D90D3021D1012C0001C48DB /* HHCollectionViewFlowLayout.swift */,
+				8D90D3031D1012C0001C48DB /* HHEmojiKeyboard.swift */,
+				8D90D3041D1012C0001C48DB /* HHEmojiKeyboardCell.swift */,
+				8D90D3051D1012C0001C48DB /* HHEmojiManage.swift */,
+				8D90D3061D1012C0001C48DB /* HHImageKeyboardCell.swift */,
+			);
+			path = EmojiKeyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,6 +158,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D90D3091D1012C0001C48DB /* EmojiMap.plist in Resources */,
+				8D90D30A1D1012C0001C48DB /* EmojisList.plist in Resources */,
+				8D90D3081D1012C0001C48DB /* aio_face_delete_pressed@2x.png in Resources */,
+				8D90D3071D1012C0001C48DB /* aio_face_delete@2x.png in Resources */,
 				8D90D2F61D1012A3001C48DB /* LaunchScreen.storyboard in Resources */,
 				8D90D2F31D1012A3001C48DB /* Assets.xcassets in Resources */,
 				8D90D2F11D1012A3001C48DB /* Main.storyboard in Resources */,
@@ -137,7 +176,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D90D2EE1D1012A3001C48DB /* ViewController.swift in Sources */,
+				8D90D30F1D1012C0001C48DB /* HHImageKeyboardCell.swift in Sources */,
+				8D90D30E1D1012C0001C48DB /* HHEmojiManage.swift in Sources */,
+				8D90D30C1D1012C0001C48DB /* HHEmojiKeyboard.swift in Sources */,
+				8D90D30B1D1012C0001C48DB /* HHCollectionViewFlowLayout.swift in Sources */,
 				8D90D2EC1D1012A3001C48DB /* AppDelegate.swift in Sources */,
+				8D90D30D1D1012C0001C48DB /* HHEmojiKeyboardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
