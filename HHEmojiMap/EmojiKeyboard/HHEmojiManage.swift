@@ -56,7 +56,7 @@ class HHEmojiManage:NSObject {
                     break
                 }
             }
-           
+        
         }
         return emojiString as String
     }

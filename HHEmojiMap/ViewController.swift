@@ -21,25 +21,9 @@ class ViewController: UIViewController ,HHEmojiKeyboardDelegate,UITextViewDelega
         let dic = HHEmojiManage.getEmojiAll()
         var emojiArr:[String] = []
         for arr in dic.allValues {
-            emojiArr = arr as! [String]
-            break
+            emojiArr += arr as! [String]
+            
         }
-        
-        //生成map的代码
-        //        let emojDic:NSMutableDictionary = NSMutableDictionary()
-        //        for emoji in emojiArr {
-        //            for ch in emoji.unicodeScalars{
-        //                var emojiString = ch.debugDescription as NSString
-        //                emojiString = emojiString.stringByReplacingOccurrencesOfString("\"\\u{", withString: "#")
-        //                emojiString = emojiString.stringByReplacingOccurrencesOfString("}\"", withString: "")
-        //                emojDic.setObject(emoji, forKey: emojiString)
-        //
-        //            }
-        //        }
-        //
-        //        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
-        //        path = path.stringByAppendingPathComponent("EmojisMap.plist")
-        //        emojDic.writeToFile(path as String, atomically: true)
         
         let width:CGFloat = self.view.frame.size.width
         self.idLabel = UILabel(frame:CGRect(x: 0, y: 20, width: width, height: 20))
@@ -70,11 +54,38 @@ class ViewController: UIViewController ,HHEmojiKeyboardDelegate,UITextViewDelega
         self.view.addSubview(self.keyboard)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.textChange(_:)), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
+        
+        //注意模拟器运行
+//        createEmojiMap("/Users/caohuihui/Desktop/1")
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func createEmojiMap(dirPath:NSString) -> Void {
+        //生成map的代码
+        let dic = HHEmojiManage.getEmojiAll()
+        var emojiArr:[String] = []
+        for arr in dic.allValues {
+            emojiArr += arr as! [String]
+        }
+        
+        
+        let emojDic:NSMutableDictionary = NSMutableDictionary()
+        for emoji in emojiArr {
+            for ch in emoji.unicodeScalars{
+                var emojiString = ch.debugDescription as NSString
+                emojiString = emojiString.replacingOccurrences(of: "\"\\u{", with: "#") as NSString
+                emojiString = emojiString.replacingOccurrences(of: "}\"", with: "") as NSString
+                emojDic.setObject(emoji, forKey: emojiString)
+                
+            }
+        }
+
+        let path:NSString = dirPath.appendingPathComponent("EmojisMap.plist") as NSString
+        emojDic.write(toFile: path as String, atomically: true)
     }
     
     /**
