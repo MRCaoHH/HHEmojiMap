@@ -27,7 +27,7 @@ class HHEmojiKeyboardCell: UICollectionViewCell {
     override func updateConstraints() {
         super.updateConstraints()
         let size = self.frame.size
-        self.emojiLabel.font = UIFont.systemFontOfSize(size.width/2)
+        self.emojiLabel.font = UIFont.systemFont(ofSize: size.width/2)
     }
 
     // MARK: - 初始化
@@ -36,15 +36,15 @@ class HHEmojiKeyboardCell: UICollectionViewCell {
      */
     func initUI(){
         self.emojiLabel = UILabel()
-        self.emojiLabel.textAlignment = .Center
+        self.emojiLabel.textAlignment = .center
         self.emojiLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.emojiLabel)
         
         let vflH = "H:|-0-[emojiLabel]-0-|"
         let vflV = "V:|-0-[emojiLabel]-0-|"
         
-        let hLayout =  NSLayoutConstraint.constraintsWithVisualFormat(vflH, options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics: nil, views: ["emojiLabel" : self.emojiLabel])
-        let vLayout =  NSLayoutConstraint.constraintsWithVisualFormat(vflV, options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics: nil, views: ["emojiLabel" : self.emojiLabel])
+        let hLayout =  NSLayoutConstraint.constraints(withVisualFormat: vflH, options: NSLayoutFormatOptions(), metrics: nil, views: ["emojiLabel" : self.emojiLabel])
+        let vLayout =  NSLayoutConstraint.constraints(withVisualFormat: vflV, options: NSLayoutFormatOptions(), metrics: nil, views: ["emojiLabel" : self.emojiLabel])
         self.addConstraints(hLayout)
         self.addConstraints(vLayout)
     }

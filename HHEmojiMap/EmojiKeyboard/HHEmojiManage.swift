@@ -18,7 +18,7 @@ class HHEmojiManage:NSObject {
      - returns: emoji表情的字典
      */
     class func getEmojiAll() -> NSDictionary{
-        if let path = NSBundle.mainBundle().pathForResource("EmojisList", ofType: "plist"){
+        if let path = Bundle.main.path(forResource: "EmojisList", ofType: "plist"){
             if let dic = NSDictionary(contentsOfFile: path as String){
                 return dic
             }
@@ -32,7 +32,7 @@ class HHEmojiManage:NSObject {
      - returns: emoji表情的字典
      */
     class func getEmojiMap() -> NSDictionary{
-        if let path = NSBundle.mainBundle().pathForResource("EmojiMap", ofType: "plist"){
+        if let path = Bundle.main.path(forResource: "EmojiMap", ofType: "plist"){
             if let dic = NSDictionary(contentsOfFile: path as String){
                 return dic
             }
@@ -45,13 +45,13 @@ class HHEmojiManage:NSObject {
      
      - parameter idString: 标识字符串
      */
-    class func idConvertEmoji(idString:String) -> String{
+    class func idConvertEmoji(_ idString:String) -> String{
         var emojiString = idString as NSString
         for key in HHEmojiMap.allKeys {
-            if let value = HHEmojiMap.objectForKey(key as! String){
+            if let value = HHEmojiMap.object(forKey: key as! String){
                 let withString = value as! String
-                emojiString = emojiString.stringByReplacingOccurrencesOfString(key as! String, withString: withString) as NSString
-                let range = emojiString.rangeOfString("#")
+                emojiString = emojiString.replacingOccurrences(of: key as! String, with: withString) as NSString
+                let range = emojiString.range(of: "#")
                 if range.length == 0 {
                     break
                 }
@@ -66,12 +66,12 @@ class HHEmojiManage:NSObject {
      
      - parameter emojiString: emoji表情字符串
      */
-    class func emojiConvertID(emojiString:String) -> String{
+    class func emojiConvertID(_ emojiString:String) -> String{
         var idString = emojiString as NSString
         for value in HHEmojiMap.allValues {
-            if let key = HHEmojiMap.allKeysForObject(value).first {
+            if let key = HHEmojiMap.allKeys(for: value).first {
                 let withString = key as! String
-                idString = idString.stringByReplacingOccurrencesOfString(value as! String, withString: withString) as NSString
+                idString = idString.replacingOccurrences(of: value as! String, with: withString) as NSString
             }
         }
         return idString as String

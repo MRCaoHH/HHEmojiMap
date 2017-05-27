@@ -18,14 +18,14 @@ protocol HHEmojiKeyboardDelegate:NSObjectProtocol {
      - parameter emojiKeyboard: emoji键盘
      - parameter emoji:         emoji表情
      */
-    func emojiKeyboard(emojiKeyboard:HHEmojiKeyboard,didSelectEmoji emoji:String)
+    func emojiKeyboard(_ emojiKeyboard:HHEmojiKeyboard,didSelectEmoji emoji:String)
     
     /**
      点击删除按钮
      
      - parameter emojiKeyboard: emoji键盘
      */
-    func emojiKeyboardDidSelectDelete(emojiKeyboard:HHEmojiKeyboard)
+    func emojiKeyboardDidSelectDelete(_ emojiKeyboard:HHEmojiKeyboard)
     
     /**
      翻页
@@ -33,7 +33,7 @@ protocol HHEmojiKeyboardDelegate:NSObjectProtocol {
      - parameter emojiKeyboard: emoji键盘
      - parameter pageIndex:     页面的下标从0开始
      */
-    func emojiKeyboard(emojiKeyboard:HHEmojiKeyboard,scrollDidTo pageIndex:Int)
+    func emojiKeyboard(_ emojiKeyboard:HHEmojiKeyboard,scrollDidTo pageIndex:Int)
 }
 
 class HHEmojiKeyboard: UICollectionView,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate {
@@ -66,9 +66,9 @@ class HHEmojiKeyboard: UICollectionView,UICollectionViewDelegate,UICollectionVie
      */
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout ,stringArr arr:[String]!,isShowDelete delete:Bool) {
         super.init(frame: frame, collectionViewLayout: layout)
-        self.registerClass(HHEmojiKeyboardCell.self, forCellWithReuseIdentifier: "HHEmojiKeyboardCell")
-        self.registerClass(HHImageKeyboardCell.self, forCellWithReuseIdentifier: "HHImageKeyboardCell")
-        self.pagingEnabled = true
+        self.register(HHEmojiKeyboardCell.self, forCellWithReuseIdentifier: "HHEmojiKeyboardCell")
+        self.register(HHImageKeyboardCell.self, forCellWithReuseIdentifier: "HHImageKeyboardCell")
+        self.isPagingEnabled = true
         self.dataSource = self
         self.delegate = self
         self.showsHorizontalScrollIndicator = false
@@ -88,9 +88,9 @@ class HHEmojiKeyboard: UICollectionView,UICollectionViewDelegate,UICollectionVie
      */
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout ,groupingArr arr:[[String]]!,isShowDelete delete:Bool){
         super.init(frame: frame, collectionViewLayout: layout)
-        self.registerClass(HHEmojiKeyboardCell.self, forCellWithReuseIdentifier: "HHEmojiKeyboardCell")
-        self.registerClass(HHImageKeyboardCell.self, forCellWithReuseIdentifier: "HHImageKeyboardCell")
-        self.pagingEnabled = true
+        self.register(HHEmojiKeyboardCell.self, forCellWithReuseIdentifier: "HHEmojiKeyboardCell")
+        self.register(HHImageKeyboardCell.self, forCellWithReuseIdentifier: "HHImageKeyboardCell")
+        self.isPagingEnabled = true
         self.dataSource = self
         self.delegate = self
         self.showsHorizontalScrollIndicator = false
@@ -103,17 +103,17 @@ class HHEmojiKeyboard: UICollectionView,UICollectionViewDelegate,UICollectionVie
     }
     
     // MARK: - UICollectionViewDataSource
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return self.pageEmojiCount
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         if indexPath.row == self.pageEmojiCount - 1 && self.delete{
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HHImageKeyboardCell", forIndexPath: indexPath) as!  HHImageKeyboardCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HHImageKeyboardCell", for: indexPath) as!  HHImageKeyboardCell
             cell.imgView.image = UIImage(named: "aio_face_delete")
             return cell
         }else{
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HHEmojiKeyboardCell", forIndexPath: indexPath) as!  HHEmojiKeyboardCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HHEmojiKeyboardCell", for: indexPath) as!  HHEmojiKeyboardCell
             if self.dataArr[indexPath.section].count > indexPath.row {
                 cell.emojiLabel.text = self.dataArr[indexPath.section][indexPath.row]
             }else{
@@ -123,21 +123,21 @@ class HHEmojiKeyboard: UICollectionView,UICollectionViewDelegate,UICollectionVie
         }
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int{
+    func numberOfSections(in collectionView: UICollectionView) -> Int{
         return self.dataArr.count
     }
     
     // MARK: - UICollectionViewDelegate
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         if let delegate = self.emojiKeyboardDelegate {
-            if let cell = collectionView.cellForItemAtIndexPath(indexPath){
-                if cell.isKindOfClass(HHEmojiKeyboardCell){
+            if let cell = collectionView.cellForItem(at: indexPath){
+                if cell.isKind(of: HHEmojiKeyboardCell.self){
                     if let content = (cell as! HHEmojiKeyboardCell).emojiLabel.text {
                         if content.characters.count > 0{
                             delegate.emojiKeyboard(self, didSelectEmoji: content)
                         }
                     }
-                }else if cell.isKindOfClass(HHImageKeyboardCell){
+                }else if cell.isKind(of: HHImageKeyboardCell.self){
                     delegate.emojiKeyboardDidSelectDelete(self)
                 }
             }
@@ -145,32 +145,32 @@ class HHEmojiKeyboard: UICollectionView,UICollectionViewDelegate,UICollectionVie
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize{
-        return CGSizeMake(self.frame.size.width / HHEmojiKeyboard_Column, self.frame.size.width / HHEmojiKeyboard_Column)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize{
+        return CGSize(width: self.frame.size.width / HHEmojiKeyboard_Column, height: self.frame.size.width / HHEmojiKeyboard_Column)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
-        return UIEdgeInsetsZero
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
+        return UIEdgeInsets.zero
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat{
         return 0
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat{
         return 0
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
-        return CGSizeZero
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+        return CGSize.zero
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize{
-        return CGSizeZero
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize{
+        return CGSize.zero
     }
 
     // MARK: - UIScrollViewDelegate
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         if Int(scrollView.contentOffset.x)%Int(scrollView.frame.size.width) > 0 {
             page += 1
@@ -179,9 +179,10 @@ class HHEmojiKeyboard: UICollectionView,UICollectionViewDelegate,UICollectionVie
             delegate.emojiKeyboard(self, scrollDidTo: page)
         }
     }
+    
     // MARK: - 分组
-    func grouping(arr:[String]!){
-        var pageEmojiCount = self.pageEmojiCount
+    func grouping(_ arr:[String]!){
+        var pageEmojiCount:Int = self.pageEmojiCount
         if self.delete {
             pageEmojiCount = pageEmojiCount - 1
         }
@@ -195,7 +196,7 @@ class HHEmojiKeyboard: UICollectionView,UICollectionViewDelegate,UICollectionVie
         
         for i in 0..<pageNumber {
             emojis.removeAll()
-            for j in 0..<pageEmojiCount {
+            for j in 0..<pageEmojiCount  {
                 if i*pageEmojiCount + j >= arr.count {
                     break
                 }

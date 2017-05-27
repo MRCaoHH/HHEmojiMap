@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController ,HHEmojiKeyboardDelegate{
+class ViewController: UIViewController ,HHEmojiKeyboardDelegate,UITextViewDelegate{
     var keyboard:HHEmojiKeyboard!
     var idLabel:UILabel!
     var idTextView:UITextView!
@@ -42,32 +42,34 @@ class ViewController: UIViewController ,HHEmojiKeyboardDelegate{
         //        emojDic.writeToFile(path as String, atomically: true)
         
         let width:CGFloat = self.view.frame.size.width
-        self.idLabel = UILabel(frame:CGRectMake(0, 20, width, 20))
+        self.idLabel = UILabel(frame:CGRect(x: 0, y: 20, width: width, height: 20))
         self.idLabel.text = "标识字符串"
         self.view.addSubview(self.idLabel)
         
-        self.idTextView = UITextView(frame: CGRectMake(0, CGRectGetMaxY(self.idLabel.frame), width, 90))
-        self.idTextView.backgroundColor = UIColor.grayColor()
+        self.idTextView = UITextView(frame: CGRect(x: 0, y: self.idLabel.frame.maxY, width: width, height: 90))
+        self.idTextView.delegate = self
+        self.idTextView.backgroundColor = UIColor.gray
         self.view.addSubview(self.idTextView)
         
-        self.emojiLabel = UILabel(frame:CGRectMake(0, CGRectGetMaxY(self.idTextView.frame), width, 20))
+        self.emojiLabel = UILabel(frame:CGRect(x: 0, y: self.idTextView.frame.maxY, width: width, height: 20))
         self.emojiLabel.text = "emoji字符串"
         self.view.addSubview(self.emojiLabel)
         
-        self.emojiTextView = UITextView(frame: CGRectMake(0, CGRectGetMaxY(self.emojiLabel.frame), width, 90))
-        self.emojiTextView.backgroundColor = UIColor.grayColor()
+        self.emojiTextView = UITextView(frame: CGRect(x: 0, y: self.emojiLabel.frame.maxY, width: width, height: 90))
+        self.emojiTextView.delegate = self
+        self.emojiTextView.backgroundColor = UIColor.gray
         self.view.addSubview(self.emojiTextView)
         
         let layout = HHCollectionViewFlowLayout()
-        layout.scrollDirection = .Horizontal
-        layout.sectionInset = UIEdgeInsetsZero
-        let frame = CGRectMake(0, CGRectGetMaxY(self.emojiTextView.frame), width, width*3/7)
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets.zero
+        let frame = CGRect(x: 0, y: self.emojiTextView.frame.maxY, width: width, height: width*3/7)
         self.keyboard = HHEmojiKeyboard(frame: frame, collectionViewLayout: layout, stringArr: emojiArr, isShowDelete: true)
         self.keyboard.emojiKeyboardDelegate = self
-        self.keyboard.backgroundColor = UIColor.whiteColor()
+        self.keyboard.backgroundColor = UIColor.white
         self.view.addSubview(self.keyboard)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textChange(_:)), name: UITextViewTextDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textChange(_:)), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,41 +82,51 @@ class ViewController: UIViewController ,HHEmojiKeyboardDelegate{
      
      - parameter notification: 通知
      */
-    func textChange(notification:NSNotification){
+    func textChange(_ notification:Notification){
         if let textView = notification.object{
-            if textView.isEqual(self.idTextView) {
+            if (textView as AnyObject).isEqual(self.idTextView) {
                 self.emojiTextView.text = HHEmojiManage.idConvertEmoji(self.idTextView.text)
             }
             
-            if textView.isEqual(self.emojiTextView) {
+            if (textView as AnyObject).isEqual(self.emojiTextView) {
                 self.idTextView.text = HHEmojiManage.emojiConvertID(self.emojiTextView.text)
             }
         }
     }
     
     // MARK: - HHEmojiKeyboardDelegate
-    func emojiKeyboard(emojiKeyboard:HHEmojiKeyboard,didSelectEmoji emoji:String){
-        if self.idTextView.isFirstResponder(){
-            self.idTextView.text?.appendContentsOf(emoji)
-            let noti = NSNotification.init(name: UITextViewTextDidChangeNotification, object: self.idTextView)
+    func emojiKeyboard(_ emojiKeyboard:HHEmojiKeyboard,didSelectEmoji emoji:String){
+        if self.idTextView.isFirstResponder{
+            self.idTextView.text?.append(emoji)
+            let noti = Notification.init(name: NSNotification.Name.UITextViewTextDidChange, object: self.idTextView)
             self.textChange(noti)
         }else{
-            self.emojiTextView.text?.appendContentsOf(emoji)
-            let noti = NSNotification.init(name: UITextViewTextDidChangeNotification, object: self.emojiTextView)
+            self.emojiTextView.text?.append(emoji)
+            let noti = Notification.init(name: NSNotification.Name.UITextViewTextDidChange, object: self.emojiTextView)
             self.textChange(noti)
         }
     }
     
-    func emojiKeyboardDidSelectDelete(emojiKeyboard:HHEmojiKeyboard){
-        if self.idTextView.isFirstResponder(){
+    func emojiKeyboardDidSelectDelete(_ emojiKeyboard:HHEmojiKeyboard){
+        if self.idTextView.isFirstResponder{
             self.idTextView.deleteBackward()
         }else{
             self.emojiTextView.deleteBackward()
         }
     }
     
-    func emojiKeyboard(emojiKeyboard: HHEmojiKeyboard, scrollDidTo pageIndex: Int) {
+    func emojiKeyboard(_ emojiKeyboard: HHEmojiKeyboard, scrollDidTo pageIndex: Int) {
         print(pageIndex)
+    }
+    
+    // MARK: - UITextViewDelegate
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n"{
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }
 

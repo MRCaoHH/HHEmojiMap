@@ -131,7 +131,9 @@
 				TargetAttributes = {
 					8D90D2E71D1012A3001C48DB = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 8G4V96C2TB;
+						DevelopmentTeam = G7F7GRCFUG;
+						LastSwiftMigration = 0830;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -296,10 +298,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = G7F7GRCFUG;
 				INFOPLIST_FILE = HHEmojiMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.caohuihui.HHEmojiMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c6d0f869-ef79-4a85-aa38-1a48f03226e8";
+				PROVISIONING_PROFILE_SPECIFIER = development_all;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -307,10 +313,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = G7F7GRCFUG;
 				INFOPLIST_FILE = HHEmojiMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.caohuihui.HHEmojiMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c6d0f869-ef79-4a85-aa38-1a48f03226e8";
+				PROVISIONING_PROFILE_SPECIFIER = development_all;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -333,6 +343,7 @@
 				8D90D2FC1D1012A3001C48DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -9,9 +9,9 @@
 import UIKit
 
 class HHCollectionViewFlowLayout: UICollectionViewFlowLayout {
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
-        if let attributes = super.layoutAttributesForElementsInRect(rect){
+        if let attributes = super.layoutAttributesForElements(in: rect){
             let attArr = NSArray(array: attributes, copyItems: true) as! [UICollectionViewLayoutAttributes]
             for att in attArr {
                 let size = att.size

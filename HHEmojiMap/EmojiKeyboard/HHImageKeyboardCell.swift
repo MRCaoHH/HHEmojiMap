@@ -28,15 +28,15 @@ class HHImageKeyboardCell: UICollectionViewCell {
      */
     func initUI(){
         self.imgView = UIImageView()
-        self.imgView.contentMode =  UIViewContentMode.Center
+        self.imgView.contentMode =  UIViewContentMode.center
         self.imgView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.imgView)
         
         let vflH = "H:|-0-[imgView]-0-|"
         let vflV = "V:|-0-[imgView]-0-|"
         
-        let hLayout =  NSLayoutConstraint.constraintsWithVisualFormat(vflH, options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics: nil, views: ["imgView" : self.imgView])
-        let vLayout =  NSLayoutConstraint.constraintsWithVisualFormat(vflV, options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics: nil, views: ["imgView" : self.imgView])
+        let hLayout =  NSLayoutConstraint.constraints(withVisualFormat: vflH, options: NSLayoutFormatOptions(), metrics: nil, views: ["imgView" : self.imgView])
+        let vLayout =  NSLayoutConstraint.constraints(withVisualFormat: vflV, options: NSLayoutFormatOptions(), metrics: nil, views: ["imgView" : self.imgView])
         self.addConstraints(hLayout)
         self.addConstraints(vLayout)
     }
